@@ -34,18 +34,43 @@ function renderFirstImage(foodObject) {
 
     let price = document.getElementById("dish-price");
     price.textContent = foodObject.price;
+
+    let cartNumber = document.getElementById("number-in-cart");
+    cartNumber.textContent = foodObject["number_in_bag"];
+    
 }
+
+
+
 
 let form = document.querySelector("#cart-form");
 form.addEventListener("submit", function(e) {
     e.preventDefault();
     let numberToAdd = parseInt(e.target["cart-amount"].value);
+
     let numberHolder = document.querySelector("#number-in-cart");
     let currentNumber = parseInt(numberHolder.textContent);
+
     let finalLikes = numberToAdd + currentNumber;
     numberHolder.textContent = finalLikes;
 
     form.reset()
+
+    // let updatedCart = {
+    //     number_in_bag : finalLikes
+    // }
+
+    // fetch("http://localhost:3000/menu", {
+    //     method: "PATCH",
+    //     headers: {
+    //         "content-type" : "application/json"
+    //     },
+    //     body: JSON.stringify(updatedCart)
+    // })
+    //     .then(res => res.json())
+    //     .then(data => {
+
+    //     });
 
 })
 
