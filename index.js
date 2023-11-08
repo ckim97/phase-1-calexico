@@ -1,3 +1,6 @@
+// BONUS 1 LINE //
+let selectedFoodItem = null;
+
 fetch("http://localhost:3000/menu")
     .then(res => res.json())
     .then((data) => {
@@ -14,6 +17,9 @@ function renderName(foodObject) {
     menuItem.textContent = foodObject.name;
 
     menuItem.addEventListener("click", () => {
+        // BONUS 1 LINE //
+        selectedFoodItem = foodObject;
+
         renderFirstImage(foodObject);
 
     });
@@ -54,23 +60,23 @@ form.addEventListener("submit", function(e) {
     let finalLikes = numberToAdd + currentNumber;
     numberHolder.textContent = finalLikes;
 
+    // BONUS 1 LINE //
+    selectedFoodItem["number_in_bag"] = finalLikes;
+
     form.reset()
 
-    // let updatedCart = {
-    //     number_in_bag : finalLikes
-    // }
-
-    // fetch("http://localhost:3000/menu", {
-    //     method: "PATCH",
-    //     headers: {
-    //         "content-type" : "application/json"
-    //     },
-    //     body: JSON.stringify(updatedCart)
-    // })
-    //     .then(res => res.json())
-    //     .then(data => {
-
-    //     });
+    // BONUS 1 LINE //
+    fetch(`http://localhost:3000/menu/${selectedFoodItem.id}`, {
+        method: "PATCH",
+        headers: {
+            "content-type" : "application/json"
+        },
+        body: JSON.stringify(selectedFoodItem)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
 
 })
 
