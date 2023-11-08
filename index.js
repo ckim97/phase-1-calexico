@@ -4,7 +4,7 @@ let selectedFoodItem = null;
 fetch("http://localhost:3000/menu")
     .then(res => res.json())
     .then((data) => {
-        renderFirstImage(data[0]);
+        renderImage(data[0]);
         for (let item of data) {
             renderName(item);
         }
@@ -20,14 +20,14 @@ function renderName(foodObject) {
         // BONUS 1 LINE //
         selectedFoodItem = foodObject;
 
-        renderFirstImage(foodObject);
+        renderImage(foodObject);
 
     });
 
     menuContainer.append(menuItem);
 }
 
-function renderFirstImage(foodObject) {
+function renderImage(foodObject) {
 
     let image = document.getElementById("dish-image");
     image.src = foodObject.image;
@@ -57,11 +57,11 @@ form.addEventListener("submit", function(e) {
     let numberHolder = document.querySelector("#number-in-cart");
     let currentNumber = parseInt(numberHolder.textContent);
 
-    let finalLikes = numberToAdd + currentNumber;
-    numberHolder.textContent = finalLikes;
+    let finalCount = numberToAdd + currentNumber;
+    numberHolder.textContent = finalCount;
 
     // BONUS 1 LINE //
-    selectedFoodItem["number_in_bag"] = finalLikes;
+    selectedFoodItem["number_in_bag"] = finalCount;
 
     form.reset()
 
@@ -78,5 +78,5 @@ form.addEventListener("submit", function(e) {
             console.log(data);
         });
 
-})
+});
 
